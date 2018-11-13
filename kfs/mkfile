@@ -32,7 +32,7 @@ HFILES=\
 	portfns.h\
 	portdat.h\
 
-BIN=/$objtype/bin/disk
+BIN = $PLAN9/bin/disk
 
 UPDATE=mkfile\
 	$HFILES\
@@ -42,9 +42,9 @@ MAN = /usr/share/man/man4/kfs
 
 <$PLAN9/src/mkone
 
-# $O.out:	devwren.$O
+#$O.out:	devwren.$O
 
-# $O.gfs:	$OFILES devmulti.$O
+#$O.gfs:	$OFILES devmulti.$O
 #	$LD $LDFLAGS -o $target $prereq
 
 test:VQ:

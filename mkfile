@@ -7,7 +7,7 @@ DIRS=\
 
 OFILES=
 
-BIN=$PLAN9/bin/disk
+BIN = $PLAN9/bin/disk
 
 MAN = /usr/share/man/man8
 
@@ -32,13 +32,11 @@ installall:V:	installall-kfs
 
 installman:
 	cp kfscmd.man $MAN/kfscmd
-	cp kfs/kfs.man /sys/man/4/kfs
+	cp kfs/kfs.man /usr/share/man/man4/kfs
 
 %-kfs:V:
-	for(i in $DIRS) @{
-		cd $i
-		mk $MKFLAGS $stem
-	}
+	cd kfs
+	mk $MKFLAGS $stem
 
 ksync:
 	cp ksync.rc $BIN/ksync
