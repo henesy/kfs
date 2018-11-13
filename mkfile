@@ -31,8 +31,8 @@ nuke:V:		nuke-kfs
 installall:V:	installall-kfs
 
 installman:
-	cp kfscmd.man $MAN/kfscmd
-	cp kfs/kfs.man $PLAN9/man/man4/kfs
+	cp kfscmd.man $MAN/kfscmd.8
+	cp kfs/kfs.man $PLAN9/man/man4/kfs.4
 
 %-kfs:V:
 	cd kfs
@@ -45,4 +45,4 @@ $O.format: /$objtype/lib/libdisk.a
 
 uninstall: 
 	rm $BIN/kfs $BIN/kfscmd $BIN/ksync
-	rm $PLAN9/man/man4/kfs $MAN/kfscmd
+	rm $PLAN9/man/man4/kfs.4 $MAN/kfscmd.8
