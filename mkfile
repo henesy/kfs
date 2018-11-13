@@ -9,7 +9,7 @@ OFILES=
 
 BIN = $PLAN9/bin/disk
 
-MAN = /usr/share/man/man8
+MAN = $PLAN9/man/man8
 
 MANFILES = kfscmd.man
 
@@ -32,7 +32,7 @@ installall:V:	installall-kfs
 
 installman:
 	cp kfscmd.man $MAN/kfscmd
-	cp kfs/kfs.man /usr/share/man/man4/kfs
+	cp kfs/kfs.man $PLAN9/man/man4/kfs
 
 %-kfs:V:
 	cd kfs
@@ -45,4 +45,4 @@ $O.format: /$objtype/lib/libdisk.a
 
 uninstall: 
 	rm $BIN/kfs $BIN/kfscmd $BIN/ksync
-	rm usr/share/man/man4/kfs $MAN/kfscmd
+	rm $PLAN9/man/man4/kfs $MAN/kfscmd

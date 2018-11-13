@@ -38,7 +38,7 @@ UPDATE=mkfile\
 	$HFILES\
 	${OFILES:%.$O=%.c}\
 
-MAN = /usr/share/man/man4/kfs
+MAN = $PLAN9/man/man4/kfs
 
 <$PLAN9/src/mkone
 
