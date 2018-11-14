@@ -4,7 +4,7 @@
 void
 main(int argc, char *argv[])
 {
-	char *name, buf[4*1024];
+	char *name, buf[4*1024], *ns;
 	int fd, n, i, errs;
 
 	name = 0;
@@ -17,10 +17,12 @@ main(int argc, char *argv[])
 		exits("usage");
 	}ARGEND
 
+	ns = getns();
+
 	if(name)
-		snprint(buf, sizeof buf, "/srv/kfs.%s.cmd", name);
+		snprint(buf, sizeof buf, "%s/kfs.%s.cmd", ns, name);
 	else
-		strcpy(buf, "/srv/kfs.cmd");
+		snprint(buf, sizeof buf, "%s/kfs.cmd", ns);
 	fd = open(buf, ORDWR);
 	if(fd < 0){
 		fprint(2, "kfscmd: can't open commands file\n");

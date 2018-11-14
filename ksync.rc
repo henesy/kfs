@@ -8,13 +8,14 @@ fn dosync {
 		echo sync failed
 }
 
-kfs = `{ls /srv/kfs.*.cmd >[2]/dev/null}
+nsdir = `{namespace}
+kfs = `{ls $nsdir/kfs.*.cmd >[2]/dev/null}
 switch($#kfs){
 case 0
 	dosync
 case *
-	if(test -r /srv/kfs.cmd)
+	if(test -r $nsdir/kfs.cmd)
 		dosync
 	for(i in $kfs)
-		dosync -n `{echo $i|sed 's%/srv/kfs.(.*).cmd%\1%'}
+		dosync -n `{echo $i|sed 's%'^$nsdir^'kfs.(.*).cmd%\1%'}
 }

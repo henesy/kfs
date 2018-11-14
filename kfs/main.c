@@ -187,6 +187,7 @@ syncproc(void)
 {
 	char buf[4*1024];
 	Filter *ft;
+	char *mtpt;
 	ulong c0, c1;
 	long t, n, d;
 	int i, p[2];
@@ -196,9 +197,20 @@ syncproc(void)
 	 */
 	if(pipe(p) < 0)
 		panic("command pipe");
+		
+	// P9P demands we strip the #s business
+
+	/*
 	sprint(buf, "#s/%s.cmd", service);
 	srvfd(buf, cmdmode, p[0]);
 	close(p[0]);
+	*/
+	
+	sprint(buf, "%s.cmd", service);
+	if(post9pservice(p[0], buf, mtpt) < 0)
+		sysfatal("post9pservice: %r");
+	close(p[0]);
+	
 	cmdfd = p[1];
 	notify(catchalarm);
 
