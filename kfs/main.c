@@ -295,17 +295,30 @@ chaninit(char *server)
 {
 	Chan *cp;
 	char buf[3*NAMELEN];
+	char *mtpt;
 	int p[2];
 
-	sprint(buf, "#s/%s", server);
+	// P9P demands we strip the #s stuff
+
+	// sprint(buf, "#s/%s", server);
 	if(sfd < 0){
 		if(pipe(p) < 0)
 			panic("can't make a pipe");
 		sfd = p[0];
 		rfd = p[1];
 	}
+
+	// Replace as per 9660srv code in p9p
+	/*
 	srvfd(buf, 0666, sfd);
 	close(sfd);
+	*/
+	
+	// Don't use buf since that introduces unpleasant characters
+	if(post9pservice(sfd, server, mtpt) < 0)
+		sysfatal("post9pservice: %r");
+	close(sfd);
+
 	cp = ialloc(sizeof *cp);
 	cons.srvchan = cp;
 	dochaninit(cp, rfd);
@@ -370,7 +383,7 @@ srvfd(char *s, int mode, int sfd)
 {
 	int fd;
 	char buf[32];
-
+	
 	fd = create(s, ORCLOSE|OWRITE, mode);
 	if(fd < 0){
 		remove(s);
