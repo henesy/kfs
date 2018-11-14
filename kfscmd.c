@@ -25,7 +25,7 @@ main(int argc, char *argv[])
 		snprint(buf, sizeof buf, "%s/kfs.cmd", ns);
 	fd = open(buf, ORDWR);
 	if(fd < 0){
-		fprint(2, "kfscmd: can't open commands file\n");
+		fprint(2, "kfscmd: can't open commands file: %s\n", buf);
 		exits("commands file");
 	}
 

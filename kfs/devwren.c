@@ -88,6 +88,7 @@ wrenream(Device dev)
 	memset(buf, 0, sizeof buf);
 	sprint(buf+256, "%s%d\n", WMAGIC, RBUFSIZE);
 	qlock(w);
+	// TODO Hang is here
 	i = seek(fd, 0, 0) < 0 || write(fd, buf, RBUFSIZE) != RBUFSIZE;
 	qunlock(w);
 	if(i < 0)

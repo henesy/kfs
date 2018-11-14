@@ -1,5 +1,7 @@
 <$PLAN9/src/mkhdr
 
+CFLAGS = -fplan9-extensions
+
 TARG=kfs
 
 OFILES=\

@@ -52,9 +52,11 @@ startserveproc(void (*f)(Chan*, uchar*, int), char *name, Chan *c, uchar *b, int
 {
 	int pid;
 
-	switch(pid = rfork(RFMEM|RFPROC)){
+	// switch(pid = rfork(RFMEM|RFPROC)){ // Might be bad -- Changing
+	// TODO -- this is broken, needs threadified
+	switch(pid = rfork(RFFDG|RFPROC)){
 	case -1:
-		panic("can't fork");
+		panic("can't fork in 9p12: %r");
 	case 0:
 		break;
 	default:

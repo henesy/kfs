@@ -267,9 +267,10 @@ dofilter(Filter *ft)
 void
 startproc(void (*f)(void), char *name)
 {
-	switch(rfork(RFMEM|RFFDG|RFPROC)){
+	// switch(rfork(RFMEM|RFFDG|RFPROC)){ // MIGHT BE BAD -- CHANGING
+	switch(rfork(RFFDG|RFPROC)){
 	case -1:
-		panic("can't fork");
+		panic("can't fork in startproc: %r"); // This happens
 	case 0:
 		break;
 	default:
@@ -352,7 +353,8 @@ netserve(char *netaddr)
 	afd = announce(netaddr, adir);
 	if (afd < 0)
 		return -1;
-	switch (rfork(RFMEM|RFFDG|RFPROC)) {
+	// switch (rfork(RFMEM|RFFDG|RFPROC)) { // Might be bad -- changing
+	switch (rfork(RFFDG|RFPROC)) {
 	case -1:
 		return -1;
 	case 0:
@@ -373,9 +375,10 @@ netserve(char *netaddr)
 		if(netchan == nil)
 			panic("out of memory");
 		dochaninit(netchan, fd);
-		switch (rfork(RFMEM|RFFDG|RFPROC)) {
+		// switch (rfork(RFMEM|RFFDG|RFPROC)) { // Might be bad -- Changing
+		switch (rfork(RFFDG|RFPROC)) {
 		case -1:
-			panic("can't fork");
+			panic("can't fork in netservek: %r");
 		case 0:
 			close(afd);
 			close(lfd);
